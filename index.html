@@ -14,15 +14,17 @@
     </header>
     <!-- BEGINNING OF SEARCH BAR -->
     <div class="row">
+      <aside class="col-3 p-2 ms-5">
 
-      <aside class="col-3">
-        <div>
+        <div> // ---- SEARCH CITY TEXT INPUT
           <h2>Search for a City</h2>
           <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-          <div class="">
+
+          <div class=""> // ---- SEARCH CITIES BUTTON
             <button class="btn btn-primary" type="button">Button</button>
           </div>
         </div>
+
         <ul class="list-group">
           <li class="list-group-item">An item</li>
           <li class="list-group-item">A second item</li>
@@ -31,19 +33,65 @@
           <li class="list-group-item">And a fifth one</li>
         </ul>
       </aside>
-      <!-- BEGINNING OF MAIN CONTAINER -->
-      <div class="col-9">
+      
+      <div class="col-8 ps-5"> // ---- MAIN CONTAINER
         <section class="row">
-          <div class="current-weather">
-            <h3>Current Location</h3>
-            <h4>Current Temp</h4>
-            <p>Wind</p>
-            <p>Humidity</p>
+          <div class="current-weather"> // ---- CURRENT DAY DISPLAY
+            <h3 class="locationEL">Current Location</h3>
+            <h4 class="cTemp">Current Temp</h4>
+            <span class="cWind">Wind</span>
+            <span class="cHumidity">Humidity</span>
           </div>
-        </section>
-        <section class="row">
-          <div class="future-forcast-container">
 
+        </section>
+        <section class="row"> // ---- FORECAST CONTAINER
+          <div class="future-forcast-container">
+            <h5>Future Forecast</h5>
+            <div class="row future-days">
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 1
+                <span class="fDay">Day 1</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 2
+                <span class="fDay">Day 2</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 3
+                <span class="fDay">Day 3</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 4
+                <span class="fDay">Day 4</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 5
+                <span class="fDay">Day 5</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 6
+                <span class="fDay">Day 6</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+            </div>
           </div>
         </section>
       </div>
