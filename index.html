@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
+    <!-- BEGINNING OF SEARCH BAR -->
+    <div class="row">
+      <aside class="col-3 p-2 ms-5">
+
+        <div> // ---- SEARCH CITY TEXT INPUT
+          <h2>Search for a City</h2>
+          <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+
+          <div class=""> // ---- SEARCH CITIES BUTTON
+            <button class="btn btn-primary" type="button">Button</button>
+          </div>
+        </div>
+
+        <ul class="list-group">
+          <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+          <li class="list-group-item">A fourth item</li>
+          <li class="list-group-item">And a fifth one</li>
+        </ul>
+      </aside>
+      
+      <div class="col-8 ps-5"> // ---- MAIN CONTAINER
+        <section class="row">
+          <div class="current-weather"> // ---- CURRENT DAY DISPLAY
+            <h3 class="locationEL">Current Location</h3>
+            <h4 class="cTemp">Current Temp</h4>
+            <span class="cWind">Wind</span>
+            <span class="cHumidity">Humidity</span>
+          </div>
+
+        </section>
+        <section class="row"> // ---- FORECAST CONTAINER
+          <div class="future-forcast-container">
+            <h5>Future Forecast</h5>
+            <div class="row future-days">
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 1
+                <span class="fDay">Day 1</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 2
+                <span class="fDay">Day 2</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 3
+                <span class="fDay">Day 3</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 4
+                <span class="fDay">Day 4</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 5
+                <span class="fDay">Day 5</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+              <div class="col-2"> //  ---- FUTURE FORECAST DAY 6
+                <span class="fDay">Day 6</span><br>
+                <span class="fTemp">Temp</span><br>
+                <span class="fWind">Wind</span><br>
+                <span class="fHumidity">Humidity</span><br>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
