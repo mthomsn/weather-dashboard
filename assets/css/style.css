@@ -7,6 +7,9 @@ h1 {
 aside {
   border: 2px solid grey;
 }
+button {
+  width: 100%;
+}
 row {
   width: 80%;
 }
