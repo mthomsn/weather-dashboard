@@ -40,12 +40,15 @@ function useGeoApi(input) {
   
   fetch(geoAPI)
   .then(function(response){
-    console.log(response);
+    // console.log(response);
+
     return response.json();
   })
   .then(function(data){
     console.log(data);
+
     chooseCity(data);
+    // if there is only one city result, then immediatly send to weather api
     // if(data > 1){
     //   chooseCity(data);
     // } 
@@ -63,37 +66,53 @@ function chooseCity(array){
   // iterate through array and append 
   for (let i = 0; i < array.length; i++){
     let cityInfo = document.createElement('li');
-
     cityArray.push(array[i]);
-    // cityArray.push(array[i].country + ' ' + array[i].lat + ' ' + array[i].lon);
-    console.log(cityArray);
+    // console.log(cityArray);
+
     cityInfo.textContent = array[i].name + ', ' + array[i].state + ', ' + array[i].country;
-    cityInfo.setAttribute('class', array[i].lat + " " + array[i].lon);
+    cityInfo.setAttribute('class', array[i].lat + " " + array[i].lon); // storing lat & lon in class to pull later
     
-    // putting list of cities into modal and add event listener
+    //  list cities in modal and add event listeners
     modalCities.append(cityInfo);
     modalCities.addEventListener('click', getCoordinates);
   }
-
+  
   modalChooseCity.show();
 }
 
-// retrieving lat and lon
+// retrieving lat and lon from li class
 function getCoordinates(city){
-  userChoice = city.target.className.split(' ');
-  console.log(userChoice); // first item in array is lat, second item is lon
+  modalChooseCity.hide();
+  
+  // store search history in local storage
+  userChoice = city.target.className.split(' '); // separating lat and lon numbers first item in array is lat, second item is lon
+  // console.log(userChoice); 
 
+  useWeatherApi(userChoice);
 }
 
 // send city lat and long to weatherAPI
 function useWeatherApi(input){
+  let lat = input[0];
+  let lon = input[1];
+  console.log(lat);
+  console.log(lon);
 
-  let weatherAPI = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=-' + lon + '&appid=' + apiKey;
+  let weatherAPI = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey;
+  console.log(weatherAPI);
+
+  fetch(weatherAPI)
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data){
+    console.log(data);
+    // pull out Temp, wind, and humidity for current day + 5 days out
+
+  })
 }
 
-// pull out Temp, wind, and humidity for current day + 5 days out
 
-// store search history in local storage
 
 // if previous search is clicked again, then display/re run API calls
 
