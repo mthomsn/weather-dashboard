@@ -2,9 +2,12 @@
 var text; // possibly won't need?
 var userChoice;
 var cityArray = [];
+var currentW = {};
+var futureW = {};
 
 // ---- API Variables
 let apiKey = '781113304cf386534c5b0247294afa0f';
+// let apiKey = 'b24d408f81e5d96c42b394dc394f05e9';
 
 // let weatherAPI = 'http://api.openweathermap.org/data/2.5/forecast?lat=30.266666&lon=-97.733330&appid=' + apiKey;
 // let geoAPI = 'http://api.openweathermap.org/geo/1.0/direct?q=' + text + '&limit=5&appid=' + apiKey; 
@@ -45,15 +48,15 @@ function useGeoApi(input) {
     return response.json();
   })
   .then(function(data){
-    console.log(data);
+    // console.log(data);
 
     chooseCity(data);
-    // if there is only one city result, then immediatly send to weather api
+    // if there is only one city result, then immediately send to weather api
     // if(data > 1){
     //   chooseCity(data);
     // } 
     // else{
-    //   useWeatherApi(data)
+    //   currentWeatherAPI(data)
     // }
   })
 }
@@ -86,51 +89,69 @@ function getCoordinates(city){
   
   // store search history in local storage
   userChoice = city.target.className.split(' '); // separating lat and lon numbers first item in array is lat, second item is lon
+  let lat = userChoice[0];
+  let lon = userChoice[1];
   // console.log(userChoice); 
 
-  useWeatherApi(userChoice);
+  currentWeatherAPI(lat, lon);
+  futureWeatherAPI(lat, lon);
+  // futureWeatherAPI(userChoice);
 }
 
-// send city lat and long to weatherAPI
-function useWeatherApi(input){
-  let lat = input[0];
-  let lon = input[1];
-  console.log(lat);
-  console.log(lon);
+// send city lat and long to currentWeatherAPI
+function currentWeatherAPI(lat, lon){
+  // let lat = input[0];
+  // let lon = input[1];
+  // console.log(lat);
+  // console.log(lon);
 
-  let weatherAPI = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey;
-  console.log(weatherAPI);
-
+  let weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
+  // console.log(weatherAPI);
+  
   fetch(weatherAPI)
   .then(function(response){
     return response.json();
+    
   })
   .then(function(data){
-    console.log(data);
-    // pull out Temp, wind, and humidity for current day + 5 days out
+    // console.log(data);
+    
+    currentW = data;
+    console.log(currentW);
+    
+  })
+}
 
+// send same city lat and long to futureWeatherAPI
+function futureWeatherAPI(lat, lon){
+  // let lat = input[0];
+  // let lon = input[1];
+  // console.log(lat);
+  // console.log(lon);
+
+  let futureWeatherAPI = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&cnt=40&appid=5ab09b80e3343cae3223ba34d5813aba&units=imperial';
+  // console.log(futureWeatherAPI);
+  
+  fetch(futureWeatherAPI)
+  .then(function(response){
+    return response.json();
+
+  })
+  .then(function(data){
+    // console.log(data);
+
+    futureW = data;
+    console.log(futureW);
   })
 }
 
 
+// get user input
+searchBtn.addEventListener('click', function(){
+  text = userText.value;
+  // console.log(text);
+  
+  useGeoApi(text);
+})
 
 // if previous search is clicked again, then display/re run API calls
-
-// get user input
-searchBtn.addEventListener('click', function(e){
-  text = userText.value;
-  console.log(text);
-
-  useGeoApi(text);
-
-  // this works
-  // fetch(geoAPI)
-  // .then(function(response){
-  //   console.log(response);
-  //   return response.json();
-  // })
-  // .then(function(data){
-  //   console.log(data);
-  //   return data;
-  // })
-})
