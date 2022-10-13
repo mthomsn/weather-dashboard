@@ -6,6 +6,8 @@ var currentW = {};
 var futureW = {};
 var nextFive = [];
 var currentDate = dayjs().format('MM/DD/YYYY');
+var recentSearches = [];
+var key = 'minou';
 
 // ---- API Variables
 let apiKey = '781113304cf386534c5b0247294afa0f';
@@ -16,6 +18,7 @@ let weatherIcon = 'http://openweathermap.org/img/wn/'
 let searchBtn = document.querySelector('.btn-primary');
 let userText = document.querySelector('.form-control');
 let searchHistory = document.querySelector('.search-history');
+let clearHistory = document.getElementById('clear-recent')
 // ---- Current Weather display
 let currentWeatherContainer = document.querySelector('.current-weather');
 let loc = document.querySelector('.locationEL');
@@ -93,25 +96,32 @@ function getCoordinates(city){
   
   // store search history in local storage
   userChoice = city.target.className.split(' '); // separating lat and lon numbers first item in array is lat, second item is lon
+
+  
   let lat = userChoice[0];
   let lon = userChoice[1];
-
+  
   // saving city
-  userChoice.push({});
-  userChoice[2].name = city.target.textContent;
-
+  // userChoice.push({});
+  // userChoice[2].name = city.target.textContent;
+  userChoice.push(city.target.textContent);
   // console.log(userChoice); 
-
+  
+  // send userChoice to local storage
+  recentSearches.push(userChoice);
+  localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+  
   currentWeatherAPI(lat, lon);
   futureWeatherAPI(lat, lon);
+  pastSearches();
   // futureWeatherAPI(userChoice);
-
+  
   // console.log('get coordinates function end');
 }
 
 // send city lat and long to currentWeatherAPI
 function currentWeatherAPI(lat, lon){
-
+  
   let weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey + '&units=imperial';
   
   fetch(weatherAPI)
@@ -123,7 +133,7 @@ function currentWeatherAPI(lat, lon){
     // console.log(data);
     currentW = data;
     // console.log(currentW);
-
+    
     loc.textContent = currentW.name + ' (' + currentDate + ')';
     temp.textContent = Math.floor(currentW.main.temp) + '°F';
     wind.textContent = 'Wind ' + currentW.wind.deg + '°, ' + currentW.wind.speed + ' mph';
@@ -140,38 +150,38 @@ function futureWeatherAPI(lat, lon){
   // let lon = input[1];
   // console.log(lat);
   // console.log(lon);
-
+  
   let futureWeatherAPI = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&cnt=40&appid=5ab09b80e3343cae3223ba34d5813aba&units=imperial';
   // console.log(futureWeatherAPI);
   
   fetch(futureWeatherAPI)
   .then(function(response){
     return response.json();
-
+    
   })
   .then(function(data){
     // console.log(data);
-
+    
     futureW = data;
     // console.log(futureW);
-
+    
     // nextFive variable to hold weather predictions for the next 5 days
     nextFive = [];
     for(let i = 3; i < futureW.list.length; i += 8){
       nextFive.push(futureW.list[i]);
     }
-
     
-
+    
+    
     // adding text to future forecast
     // var d = '';
     // var d2 = new Date();
     // console.log(d2);
     // console.log(d2.getUTCMonth());
-
+    
     // loop through future forecast containers and populate with weather data
     for(let i = 0; i < nextFive.length; i++){ 
-
+      
       var j = i + 1;
       var testDay = dayjs; // initializing date because this is what works for right now
       var futDay = dayjs().add(j, 'day');
@@ -181,12 +191,45 @@ function futureWeatherAPI(lat, lon){
       futureWind[i].textContent = 'Wind: ' + Math.floor(nextFive[i].wind.speed) + 'mph';
       futureHumidity[i].textContent = 'Humidity: ' + nextFive[i].main.humidity + '%';
       futureIcon[i].src = weatherIcon + nextFive[i].weather[0].icon + '.png';
-      console.log(weatherIcon + nextFive[i].weather[0].icon + '.png');
+      // console.log(weatherIcon + nextFive[i].weather[0].icon + '.png');
     }
     // console.log('Future weather function end'); used to check js flow
   })
-
+  
 }
+
+// retrieve items from local storage
+function pastSearches(){
+  // localStorage.getItem('')
+  searchHistory.innerHTML = '';
+
+  // Render a new li for each todo
+  for (var i = 0; i < recentSearches.length; i++) {
+    var recentSearch = recentSearches[i];
+
+    var li = document.createElement("li");
+    li.textContent = recentSearch[2]
+    li.setAttribute("class", recentSearch[0] + ' ' + recentSearch[1]);
+
+    searchHistory.appendChild(li);
+  }
+}
+
+// --------------------------------------------------------------------------- WORKING
+// retreive items and set html on page load
+function init() {
+  
+    var storedSearches = JSON.parse(localStorage.getItem('recentSearches'));
+  
+
+  if (storedSearches !== null) {
+    recentSearches = storedSearches;
+  }
+
+  // call function to display recent searches in list
+  pastSearches();
+}
+init();
 // get user input
 searchBtn.addEventListener('click', function(){
   text = userText.value;
@@ -197,5 +240,8 @@ searchBtn.addEventListener('click', function(){
   // console.log('Event listener end') used to check js flow
 })
 
-// if previous search is clicked again, then display/re run API calls
-
+clearHistory.addEventListener('click', function(){
+  recentSearches = [];
+  localStorage.clear();
+  init();
+})
