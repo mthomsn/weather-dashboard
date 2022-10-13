@@ -216,9 +216,13 @@ function pastSearches(){
 
     searchHistory.appendChild(li);
   }
+  // ---------------------------------------------------------- WORKING
+  for (var i = 0; i < searchHistory.children.length; i++){
+    searchHistory.children[i].addEventListener('click', getCoordinates);
+  }
+
 }
 
-// --------------------------------------------------------------------------- WORKING
 // retrieve items and set html on page load
 function init() {
   var storedSearches = JSON.parse(localStorage.getItem('recentSearches'));
