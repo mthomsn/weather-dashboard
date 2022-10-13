@@ -7,7 +7,10 @@ var futureW = {};
 var nextFive = [];
 var currentDate = dayjs().format('MM/DD/YYYY');
 var recentSearches = [];
-var key = 'minou';
+var defaultLocation = {
+  lat: '30.2711286',
+  long: '-97.7436995',
+}
 
 // ---- API Variables
 let apiKey = '781113304cf386534c5b0247294afa0f';
@@ -216,16 +219,16 @@ function pastSearches(){
 }
 
 // --------------------------------------------------------------------------- WORKING
-// retreive items and set html on page load
+// retrieve items and set html on page load
 function init() {
+  var storedSearches = JSON.parse(localStorage.getItem('recentSearches'));
   
-    var storedSearches = JSON.parse(localStorage.getItem('recentSearches'));
-  
-
   if (storedSearches !== null) {
     recentSearches = storedSearches;
+    // currentWeatherAPI(recentSearches[0][0], recentSearches[0][1]);
   }
 
+  currentWeatherAPI(defaultLocation.lat, defaultLocation.long)
   // call function to display recent searches in list
   pastSearches();
 }
