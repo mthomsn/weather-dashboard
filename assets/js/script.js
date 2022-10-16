@@ -46,7 +46,7 @@ let modalCities = document.getElementById('cityList');
 
 // send city input to geoAPI
 function useGeoApi(input) {
-  let geoAPI = 'http://api.openweathermap.org/geo/1.0/direct?q=' + input + '&limit=5&appid=' + apiKey;
+  let geoAPI = 'https://api.openweathermap.org/geo/1.0/direct?q=' + input + '&limit=5&appid=' + apiKey;
   
   fetch(geoAPI)
   .then(function(response){
