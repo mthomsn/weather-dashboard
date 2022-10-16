@@ -216,11 +216,31 @@ function pastSearches(){
 
     searchHistory.appendChild(li);
   }
-  // ---------------------------------------------------------- WORKING
   for (var i = 0; i < searchHistory.children.length; i++){
     searchHistory.children[i].addEventListener('click', getCoordinates);
   }
+  
+}
 
+// clean local storage info
+function cleanUp() {
+  let storedSearches = JSON.parse(localStorage.getItem('recentSearches'));
+
+  console.log(storedSearches.length);
+  
+  let unique = [];
+
+  storedSearches.forEach((item) => {
+    if(!unique.includes(item)){
+      unique.push(item);
+    }
+  });
+
+  console.log(unique);
+  // let unique = [...new Set(storedSearches)]
+  // console.log(unique) 
+  
+  // localStorage.setItem('recentSearches', unique);
 }
 
 // retrieve items and set html on page load
@@ -234,6 +254,7 @@ function init() {
 
   currentWeatherAPI(defaultLocation.lat, defaultLocation.long)
   // call function to display recent searches in list
+  // cleanUp();
   pastSearches();
 }
 init();
