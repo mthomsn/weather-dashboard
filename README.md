@@ -1,4 +1,4 @@
-# challenge-6
+# weather-dashboard
 Weather Dashboard
 
 ## Tools Used
